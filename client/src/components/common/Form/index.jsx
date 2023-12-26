@@ -74,8 +74,8 @@ const Form = () => {
         setIsSubmitting(true);
 
         const response = await axios.post(
-          // "https://nodemailer-api-vemq.onrender.com/nodemailer",
-          "http://localhost:3001/nodemailer/send",
+          "https://chemys-website-api.onrender.com/nodemailer/send",
+          // "http://localhost:3001/nodemailer/send",
           mailerState
         );
         console.log("Server response:", response.data);

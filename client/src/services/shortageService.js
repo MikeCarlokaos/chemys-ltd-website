@@ -1,7 +1,8 @@
 // crud-admin/client/src/services/shortageService.js
 
-const API_BASE_URL = "http://localhost:3001/api/auth/shortages";
-// const API_BASE_URL = "https://chemys-admin-api.onrender.com/api/auth/shortages";
+// const API_BASE_URL = "http://localhost:3001/api/auth/shortages";
+const API_BASE_URL =
+  "https://chemys-website-api.onrender.com/api/auth/shortages";
 
 export const fetchShortages = async ({
   page,
