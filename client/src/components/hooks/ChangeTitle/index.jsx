@@ -5,7 +5,7 @@ const ChangeTitle = (title) => {
     document.title = title;
 
     return () => {
-      document.title = "Default Title";
+      document.title = "Chemys Limited | Medicine Wholesaler | United Kingdom";
     };
   }, [title]);
 };
