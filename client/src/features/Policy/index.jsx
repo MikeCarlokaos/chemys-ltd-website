@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const Policy = () => {
   const months = [
@@ -16,13 +16,26 @@ const Policy = () => {
     "December",
   ];
 
-  const getDate = () => {
+  const [currentDate, setCurrentDate] = useState(getDate());
+
+  function getDate() {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
     const date = today.getDate();
     return `${months[month]} ${date}, ${year}`;
-  };
+  }
+
+  useEffect(() => {
+    // Update the date approximately once a month
+    const daysInMonth = 30; // Assuming a month has 30 days
+    const intervalId = setInterval(() => {
+      setCurrentDate(getDate());
+    }, daysInMonth * 24 * 60 * 60 * 1000);
+
+    // Clear the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []); // Empty dependency array ensures this effect runs only once on mount
 
   return (
     <div className="w-full h-full pt-36">
@@ -56,7 +69,14 @@ const Policy = () => {
             will help you understand your privacy rights and choices. If you do
             not agree with our policies and practices, please do not use our
             Services. If you still have any questions or concerns, please
-            contact us at info.chemys.co.uk.
+            contact us at{" "}
+            <a
+              href="mailto:info.chemys.co.uk"
+              className="font-bold hover:text-tertiary"
+            >
+              info.chemys.co.uk
+            </a>
+            .
           </p>
 
           <h2 className="text-center text-2xl font-bold">
@@ -75,22 +95,19 @@ const Policy = () => {
               visit, use, or navigate our Services, we may process personal
               information depending on how you interact with us and the
               Services, the choices you make, and the products and features you
-              use. Learn more about{" "}
-              <a>personal information you disclose to us.</a>
+              use.
             </li>
 
             <li>
               <strong>Do we process any sensitive personal information?</strong>{" "}
               We may process sensitive personal information when necessary with
-              your consent or as otherwise permitted by applicable law. Learn
-              more about <a>sensitive information we process.</a>
+              your consent or as otherwise permitted by applicable law.
             </li>
 
             <li>
               <strong>Do we receive any information from third parties?</strong>{" "}
               We may receive information from public databases, marketing
-              partners, social media platforms, and other outside sources. Learn
-              more about <a>information collected from other sources</a>.
+              partners, social media platforms, and other outside sources.
             </li>
 
             <li>
@@ -99,8 +116,7 @@ const Policy = () => {
               communicate with you, for security and fraud prevention, and to
               comply with law. We may also process your information for other
               purposes with your consent. We process your information only when
-              we have a valid legal reason to do so. Learn more about{" "}
-              <a>how we process your information.</a>
+              we have a valid legal reason to do so.
             </li>
 
             <li>
@@ -109,29 +125,26 @@ const Policy = () => {
                 information?
               </strong>{" "}
               We may share information in specific situations and with specific
-              third parties. Learn more about{" "}
-              <a>when and with whom we share your personal information.</a>
+              third parties.
             </li>
 
             <li>
               <strong>What are your rights?</strong> Depending on where you are
               located geographically, the applicable privacy law may mean you
-              have certain rights regarding your personal information. Learn
-              more about <a>your privacy rights.</a>
+              have certain rights regarding your personal information.
             </li>
 
             <li>
               <strong>How do you exercise your rights?</strong> The easiest way
-              to exercise your rights is by submitting a{" "}
-              <a>data subject access request</a>, or by contacting us. We will
-              consider and act upon any request in accordance with applicable
-              data protection laws.
+              to exercise your rights is by contacting us. We will consider and
+              act upon any request in accordance with applicable data protection
+              laws.
             </li>
           </ul>
 
           <p>
-            Want to learn more about what we do with any information we collect?{" "}
-            <a>Review the privacy notice in full.</a>
+            Want to learn more about what we do with any information we collect?
+            Review the privacy notice in full.
           </p>
         </div>
         {/* table of contents */}
@@ -346,8 +359,7 @@ const Policy = () => {
                   <strong>Consent.</strong> We may process your information if
                   you have given us permission (i.e. consent) to use your
                   personal information for a specific purpose. You can withdraw
-                  your consent at any time. Learn more about{" "}
-                  <a>withdrawing your consent.</a>
+                  your consent at any time.
                 </li>
                 <li>
                   <strong>Performance of a Contract.</strong> We may process
@@ -476,13 +488,18 @@ const Policy = () => {
               We do not knowingly solicit data from or market to children under
               18 years of age. By using the Services, you represent that you are
               at least 18 or that you are the parent or guardian of such a minor
-              and consent to such minor dependent’s use of the Services. If we
+              and consent to such minor dependent's use of the Services. If we
               learn that personal information from users less than 18 years of
               age has been collected, we will deactivate the account and take
               reasonable measures to promptly delete such data from our records.
               If you become aware of any data we may have collected from
               children under age 18, please contact us at{" "}
-              <a>info.chemys.co.uk.</a>
+              <a
+                href="mailto:info.chemys.co.uk"
+                className="font-bold hover:text-tertiary"
+              >
+                info.chemys.co.uk
+              </a>
             </p>
           </div>
         </div>

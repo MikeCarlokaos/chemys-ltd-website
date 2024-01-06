@@ -36,7 +36,7 @@ const ScrollTopButton = () => {
       onClick={scrollToTop}
       className={`${
         showButton
-          ? "fixed bottom-20 right-10 w-10 h-10 bg-black/50 rounded-xl hover:bg-tertiary/80"
+          ? "fixed bottom-10 right-10 w-10 h-10 bg-black/50 rounded-xl hover:bg-tertiary/80"
           : "hidden"
       }`}
     >

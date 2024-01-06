@@ -10,6 +10,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ScrollToTop from "./components/hooks/ScrollToTop";
 import ScrollTopButton from "./components/common/ScrollTopButton";
 import ThankYou from "./pages/ThankYou";
+import ConsentBanner from "./components/common/ConsentBanner";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       </Routes>
       <ScrollToTop />
       <ScrollTopButton />
+      <ConsentBanner />
     </div>
   );
 }

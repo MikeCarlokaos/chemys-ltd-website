@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const nodemailerRoutes = require("./routes/nodemailer");
 const shortageRoutes = require("./routes/shortages");
+const cookieConsentRoutes = require("./routes/cookieConsent"); // Import the route
 
 dotenv.config();
 const app = express();
@@ -18,7 +19,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
 
 mongoose.connect(
@@ -29,9 +29,10 @@ mongoose.connect(
   }
 );
 
-//  routes
+// routes
 app.use("/nodemailer", nodemailerRoutes);
 app.use("/api/auth/shortages", shortageRoutes);
+app.use("/api/auth/cookieconsents", cookieConsentRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
