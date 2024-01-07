@@ -237,7 +237,7 @@ const Form = () => {
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <div className="flex">
+                <div className="flex items-center">
                   Submitting
                   <span class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping"></span>
                   <span class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping [animation-delay:0.3s]"></span>
