@@ -13,6 +13,7 @@ const ConsentSchema = new mongoose.Schema({
   timestamp: {
     type: Date,
     default: Date.now,
+    expires: "2m", // Set the TTL (Time-To-Live) for 2 months
   },
 });
 
