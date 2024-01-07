@@ -239,11 +239,9 @@ const Form = () => {
               {isSubmitting ? (
                 <div className="flex">
                   Submitting
-                  <div className="flex items-center bg-blue-600">
-                    <div class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping"></div>
-                    <div class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping [animation-delay:0.3s]"></div>
-                    <div class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping [animation-delay:0.7s]"></div>
-                  </div>
+                  <span class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping"></span>
+                  <span class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping [animation-delay:0.3s]"></span>
+                  <span class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping [animation-delay:0.7s]"></span>
                 </div>
               ) : (
                 "Submit"
