@@ -239,10 +239,10 @@ const Form = () => {
               {isSubmitting ? (
                 <div className="flex">
                   Submitting
-                  <div class="flex justify-center">
-                    <span class="circle animate-loader"></span>
-                    <span class="circle animate-loader animation-delay-200"></span>
-                    <span class="circle animate-loader animation-delay-400"></span>
+                  <div className="flex items-center bg-blue-600">
+                    <div class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping"></div>
+                    <div class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping [animation-delay:0.3s]"></div>
+                    <div class="h-1 w-1 mx-1.5 bg-white rounded-full animate-ping [animation-delay:0.7s]"></div>
                   </div>
                 </div>
               ) : (
