@@ -5,16 +5,16 @@ import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Switch from "react-switch";
 import axios from "axios";
+import { nanoid } from "nanoid";
 
 const ConsentBanner = () => {
   const [cookies, setCookie] = useCookies(["cookieConsent"]);
   const [showBanner, setShowBanner] = useState(false);
   const [showCustomize, setShowCustomize] = useState(false);
-  const [enabledCookies, setEnabledCookies] = useState({
-    necessary: true,
-    analytics: false,
-    marketing: false,
-  });
+
+  // Generate a unique user ID using nanoid
+  const userId = localStorage.getItem("userId") || nanoid();
+  localStorage.setItem("userId", userId);
 
   const cookieTypes = {
     necessary: {
@@ -33,6 +33,14 @@ const ConsentBanner = () => {
     },
   };
 
+  const defaultCookies = {
+    necessary: true,
+    analytics: false,
+    marketing: false,
+  };
+
+  const [enabledCookies, setEnabledCookies] = useState(defaultCookies);
+
   useEffect(() => {
     const isFirstVisit = !localStorage.getItem("visited");
 
@@ -42,50 +50,62 @@ const ConsentBanner = () => {
     }
   }, []);
 
-  const handleConsent = () => {
-    setCookie("cookieConsent", enabledCookies, { path: "/", maxAge: 31536000 });
-    setEnabledCookies({
-      necessary: true,
-      analytics: true,
-      marketing: true,
-    });
-    setShowBanner(false);
-    sendToServer("accept");
-  };
-
-  const handleReject = () => {
-    setCookie(
-      "cookieConsent",
-      { necessary: true, analytics: false, marketing: false },
-      { path: "/", maxAge: 31536000 }
-    );
-    setEnabledCookies({
-      necessary: true,
-      analytics: false,
-      marketing: false,
-    });
-    setShowBanner(false);
-    sendToServer("reject");
-    // Additional logic for handling rejected cookies if needed
-  };
-
-  const sendToServer = (action) => {
-    const data = { userIdentifier: "unique_user_id", action, enabledCookies };
-
-    axios;
-    axios
-      // .post("http://localhost:3001/api/auth/cookieconsent", data)
-      .post(
-        "https://chemys-website-api.onrender.com/api/auth/cookieconsent",
-        data
-      )
-      .then((response) => {
-        console.log("Counts sent to the server:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error sending counts to the server:", error);
+  const handleConsent = async () => {
+    try {
+      setCookie("cookieConsent", enabledCookies, {
+        path: "/",
+        maxAge: 31536000,
       });
+
+      // Send a request to store the user's consent data in the database
+      await axios.post("http://localhost:3001/api/consent", {
+        userId,
+        cookiePreferences: enabledCookies,
+      });
+
+      setEnabledCookies({
+        necessary: true,
+        analytics: true,
+        marketing: true,
+      });
+      setShowBanner(false);
+    } catch (error) {
+      // Handle the error (e.g., log it, show a user-friendly message)
+      console.error("Error during consent handling:", error);
+    }
   };
+
+  const handleReject = async () => {
+    try {
+      setCookie(
+        "cookieConsent",
+        { necessary: true, analytics: false, marketing: false },
+        { path: "/", maxAge: 31536000 }
+      );
+
+      // Send a request to store the user's rejected consent data in the database
+      await axios.post("http://localhost:3001/api/consent", {
+        userId,
+        cookiePreferences: {
+          necessary: true,
+          analytics: false,
+          marketing: false,
+        },
+      });
+
+      setEnabledCookies({
+        necessary: true,
+        analytics: false,
+        marketing: false,
+      });
+      setShowBanner(false);
+      // Additional logic for handling rejected cookies if needed
+    } catch (error) {
+      // Handle the error (e.g., log it, show a user-friendly message)
+      console.error("Error during rejection handling:", error);
+    }
+  };
+
   const handleToggleNecessary = () => {
     setEnabledCookies((prevCookies) => ({
       ...prevCookies,
@@ -108,13 +128,29 @@ const ConsentBanner = () => {
   };
 
   const handleToggleCookie = (type) => {
-    if (type === "necessary") handleToggleNecessary();
-    else if (type === "analytics") handleToggleAnalytics();
-    else if (type === "marketing") handleToggleMarketing();
+    if (type === "necessary") {
+      handleToggleNecessary();
+    } else if (type === "analytics") {
+      handleToggleAnalytics();
+    } else if (type === "marketing") {
+      handleToggleMarketing();
+    }
   };
 
   const handleHideCustomize = () => {
     setShowCustomize(false);
+  };
+
+  const handleSavePreferences = async () => {
+    setCookie("cookieConsent", enabledCookies, { path: "/", maxAge: 31536000 });
+
+    // Send a request to store the user's consent data in the database
+    await axios.post("/api/consent", {
+      userId,
+      cookiePreferences: enabledCookies,
+    });
+
+    setShowBanner(false);
   };
 
   const handleCloseBanner = () => {
@@ -124,9 +160,10 @@ const ConsentBanner = () => {
   return (
     <div>
       {showBanner && (
-        <div className="fixed z-40 bottom-4 left-4 w-96 bg-white border-2 p-5 rounded-lg shadow-md">
+        <div className="fixed bottom-0 w-full bg-white border-2 p-5 rounded-lg shadow-md md:w-[30rem] md:bottom-4 md:left-4">
           <div className="relative w-full">
-            <div className="flex w-full justify-center items-center">
+            <div className="flex flex-col w-full justify-center items-center">
+              <h2 className="self-start font-bold">We use cookies</h2>
               <p className="text-sm text-justify text-gray-700">
                 We use cookies to enhance your experience. By continuing to
                 visit this site, you agree to our use of cookies.{" "}
@@ -164,7 +201,19 @@ const ConsentBanner = () => {
                       </div>
                     </div>
                   ))}
-                  <div className="flex justify-end mt-2">
+                  <div className="flex justify-between mt-2">
+                    <button
+                      className="w-44 border-2 border-green-400 px-4 py-1.5 rounded hover:bg-green-400 hover:text-white"
+                      onClick={handleConsent}
+                    >
+                      Accept All
+                    </button>
+                    <button
+                      className="w-44 border-2 border-blue-400 px-4 py-1.5 rounded hover:bg-blue-400 hover:text-white"
+                      onClick={handleSavePreferences}
+                    >
+                      Save Preferences
+                    </button>
                     <button
                       className="border-2 border-blue-400 px-4 py-1.5 rounded hover:bg-blue-400 hover:text-white"
                       onClick={handleHideCustomize}
@@ -175,21 +224,21 @@ const ConsentBanner = () => {
                 </>
               )}
               {!showCustomize && (
-                <div className="flex w-full gap-5">
+                <div className="flex w-full justify-between gap-5">
                   <button
-                    className="w-28 border-2 border-blue-400 px-4 py-1.5 rounded hover:bg-blue-400 hover:text-white"
+                    className="w-36 border-2 border-blue-400 px-4 py-1.5 rounded hover:bg-blue-400 hover:text-white"
                     onClick={() => setShowCustomize(true)}
                   >
                     Customize
                   </button>
                   <button
-                    className="w-28 border-2 border-green-400 px-4 py-1.5 rounded hover:bg-green-400 hover:text-white"
+                    className="w-36 border-2 border-green-400 px-4 py-1.5 rounded hover:bg-green-400 hover:text-white"
                     onClick={handleConsent}
                   >
                     Accept
                   </button>
                   <button
-                    className="w-28 border-2 border-red-400 px-4 py-1.5 rounded hover:bg-red-400 hover:text-white"
+                    className="w-36 border-2 border-red-400 px-4 py-1.5 rounded hover:bg-red-400 hover:text-white"
                     onClick={handleReject}
                   >
                     Reject
@@ -199,7 +248,7 @@ const ConsentBanner = () => {
             </div>
             <div className="absolute -top-5 -right-5">
               <button
-                className="text-gray-400 border rounded hover:text-blue-600 hover:border-blue-600"
+                className="text-gray-400 border rounded hover:text-red-600 hover:border-slate-400"
                 onClick={handleCloseBanner}
               >
                 <svg
@@ -224,7 +273,7 @@ const ConsentBanner = () => {
 
       {!showBanner && (
         <div
-          className="fixed z-40 bottom-10 left-10 bg-gray-900/50 text-white p-2 rounded-full cursor-pointer hover:bg-gray-800"
+          className="fixed bottom-10 left-10 bg-gray-900/50 text-white p-2 rounded-full cursor-pointer hover:bg-gray-800"
           onClick={() => setShowBanner(true)}
         >
           <svg
