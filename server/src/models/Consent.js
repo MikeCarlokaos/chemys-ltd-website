@@ -1,5 +1,3 @@
-// models/Consent.js
-
 const mongoose = require("mongoose");
 
 const ConsentSchema = new mongoose.Schema({
@@ -18,7 +16,6 @@ const ConsentSchema = new mongoose.Schema({
   },
 });
 
-// Use the second database connection for this model
-const Consent = secondDatabaseConnection.model("Consent", ConsentSchema);
+const Consent = mongoose.model("Consent", ConsentSchema);
 
 module.exports = Consent;

@@ -1,38 +1,17 @@
-// app.js
-
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const nodemailerRoutes = require("./routes/nodemailer");
 const shortageRoutes = require("./routes/shortages");
-const consentRoutes = require("./routes/consent");
-const Shortage = require("./models/Shortage");
-const Consent = require("./models/Consent");
+const consentRoutes = require("./routes/consent"); // Import the new file
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Database Connections
-const firstDatabaseConnection = mongoose.createConnection(
-  "mongodb+srv://websitechemys:shortage@inventory.ien5ju3.mongodb.net/chemys-inventory?retryWrites=true&w=majority",
-  {
-    socketTimeoutMS: 30000,
-    connectTimeoutMS: 30000,
-  }
-);
-
-const secondDatabaseConnection = mongoose.createConnection(
-  "mongodb+srv://cookiewebsitechemys:shortage@cluster0.bbqkdaw.mongodb.net/cookieconsent?retryWrites=true&w=majority",
-  {
-    socketTimeoutMS: 30000,
-    connectTimeoutMS: 30000,
-  }
-);
-
-// CORS Configuration
 const corsOptions = {
+  // origin: "http://localhost:5173",
   origin: "https://chemyslimiteddemo.onrender.com",
   methods: "POST",
 };
@@ -40,15 +19,18 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Routes
-app.use("/nodemailer", nodemailerRoutes);
-app.use(
-  "/api/auth/shortages",
-  shortageRoutes(firstDatabaseConnection, Shortage)
+mongoose.connect(
+  "mongodb+srv://kaosvioge:formentera1@chemys-admin-database.fz7jxky.mongodb.net/chemys-ltd?retryWrites=true&w=majority",
+  {
+    socketTimeoutMS: 30000,
+    connectTimeoutMS: 30000,
+  }
 );
-app.use("/api/consent", consentRoutes(secondDatabaseConnection, Consent));
 
-// Start the Server
+app.use("/nodemailer", nodemailerRoutes);
+app.use("/api/auth/shortages", shortageRoutes);
+app.use("/api/consent", consentRoutes); // Use the new consent routes
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

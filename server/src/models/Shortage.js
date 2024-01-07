@@ -1,4 +1,4 @@
-// models/Shortage.js
+// chemys-limited/server/src/models/Shortage.js
 
 const mongoose = require("mongoose");
 
@@ -9,7 +9,6 @@ const shortageSchema = new mongoose.Schema({
   packSize: String,
 });
 
-// Use the first database connection for this model
-const Shortage = firstDatabaseConnection.model("Shortage", shortageSchema);
+const Shortage = mongoose.model("Shortage", shortageSchema);
 
 module.exports = Shortage;
