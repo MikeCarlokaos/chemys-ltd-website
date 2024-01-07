@@ -462,7 +462,7 @@ const Policy = () => {
               a longer retention period is required or permitted by law (such as
               tax, accounting, or other legal requirements). No purpose in this
               notice will require us keeping your personal information for
-              longer than 6 months.
+              longer than 2 months.
             </p>
             <p>
               When we have no ongoing legitimate business need to process your
