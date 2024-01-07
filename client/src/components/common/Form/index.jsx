@@ -231,10 +231,21 @@ const Form = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-primary text-white px-8 py-2 rounded-3xl uppercase ease-in-out duration-300 hover:bg-tertiary active:bg-black"
+              className={`bg-primary text-white px-8 py-2 rounded-3xl uppercase ease-in-out duration-300 hover:bg-tertiary active:bg-black relative ${
+                isSubmitting ? "cursor-not-allowed" : "cursor-pointer"
+              }`}
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Submitting..." : "Submit"}
+              {isSubmitting ? (
+                <>
+                  Submitting
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-opacity-75 bg-white"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-opacity-75 bg-white"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-opacity-75 bg-white"></span>
+                </>
+              ) : (
+                "Submit"
+              )}
             </button>
           </div>
           {submitError && (
