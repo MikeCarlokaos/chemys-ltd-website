@@ -84,7 +84,8 @@ const ConsentBanner = () => {
       );
 
       // Send a request to store the user's rejected consent data in the database
-      await axios.post("http://localhost:3001/api/consent", {
+      // await axios.post("http://localhost:3001/api/consent", {
+      await axios.post("https://chemys-website-api.onrender.com/api/consent", {
         userId,
         cookiePreferences: {
           necessary: true,
@@ -145,7 +146,8 @@ const ConsentBanner = () => {
     setCookie("cookieConsent", enabledCookies, { path: "/", maxAge: 31536000 });
 
     // Send a request to store the user's consent data in the database
-    await axios.post("/api/consent", {
+    // await axios.post("/api/consent", {
+    await axios.post("https://chemys-website-api.onrender.com/api/consent", {
       userId,
       cookiePreferences: enabledCookies,
     });
