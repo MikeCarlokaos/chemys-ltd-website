@@ -237,14 +237,14 @@ const Form = () => {
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <>
+                <div className="flex">
                   Submitting
                   <div class="flex justify-center">
-                    <span class="w-2 h-2 my-12 mx-1 bg-gray-500 rounded-full animate-loader"></span>
-                    <span class="w-2 h-2 my-12 mx-1 bg-gray-500 rounded-full animate-loader animation-delay-200"></span>
-                    <span class="w-2 h-2 my-12 mx-1 bg-gray-500 rounded-full animate-loader animation-delay-400"></span>
+                    <span class="circle animate-loader"></span>
+                    <span class="circle animate-loader animation-delay-200"></span>
+                    <span class="circle animate-loader animation-delay-400"></span>
                   </div>
-                </>
+                </div>
               ) : (
                 "Submit"
               )}

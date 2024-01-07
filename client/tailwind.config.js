@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  mode: "jit",
   theme: {
     listStyleType: {
       square: "square",
@@ -13,7 +14,7 @@ export default {
         loader: {
           to: {
             opacity: 0.1,
-            transform: "translate3d(0, -1rem, 0)",
+            transform: "translate3d(0, -.5rem, 0)",
           },
         },
       },
@@ -63,5 +64,6 @@ export default {
       },
     },
   },
+  variants: {},
   plugins: [],
 };
