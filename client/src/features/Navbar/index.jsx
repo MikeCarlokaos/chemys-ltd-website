@@ -50,7 +50,7 @@ const Navbar = () => {
           </div>
           {/* nav */}
           <nav
-            className={`absolute -bottom-36 left-0 w-full h-36 flex items-center bg-slate-100 border-y-2 md:block md:static md:h-full md:border-none md:justify-end ${
+            className={`absolute -bottom-44 left-0 w-full h-44 flex items-center bg-slate-100 border-y-2 md:block md:static md:h-full md:border-none md:justify-end ${
               openMenu ? "" : "hidden"
             }`}
           >

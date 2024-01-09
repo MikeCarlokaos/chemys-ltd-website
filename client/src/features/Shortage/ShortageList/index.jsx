@@ -108,10 +108,10 @@ const ShortageList = () => {
   };
 
   return (
-    <div className="w-full h-full flex p-10">
+    <div className="w-full h-full flex p-2 md:p-10">
       <div className="flex-1 flex flex-col">
-        <div className="flex items-center justify-between p-4">
-          <div className="flex-grow ml-4">
+        <div className="flex flex-col items-center justify-between gap-y-2 py-2 md:flex-row md:p-4 md:gap-0">
+          <div className="w-full md:flex-grow md:ml-4">
             <input
               type="text"
               value={search}
@@ -121,7 +121,7 @@ const ShortageList = () => {
             />
           </div>
 
-          <div className="flex items-center space-x-2 ml-4">
+          <div className="w-full flex items-center justify-center space-x-2 md:ml-4 md:justify-end">
             <label>Sort By:</label>
             <select
               value={sortCriteria}
