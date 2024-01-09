@@ -25,7 +25,9 @@ const ShortageHero = () => {
             className="py-5 md:px-16 bg-white/50 rounded-2xl"
           >
             <div className=" flex justify-start">
-              <h1 className="text-5xl  font-bold py-5 px-3"> UK Shortage</h1>
+              <h1 className="text-4xl font-bold py-5 px-3 md:text-5xl">
+                UK Shortage
+              </h1>
             </div>
             <div className=" flex flex-col justify-start">
               <p className="text-lg font-semibold py-5 px-3 ">
