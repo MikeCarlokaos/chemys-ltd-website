@@ -10,7 +10,7 @@ const services = [
     text1:
       "Medicine shortages and reduced availability of medicines are increasingly causing a delay of critical treatments for patients. Chemys will work to mitigate the impact of these medicine shortages.",
     text2:
-      "Offering imported products into the UK that are unavailable or unlicensed for patients that have an unmet medical need. Chemys has a vast network of global wholesalers and local territory knowledge, ensuring a reliable product delivery service. When importing products from overseas, we take full responsibility for gaining authorisation through permission requests and sourcing all technical information required.",
+      "Offering imported products into the UK that are unavailable or unlicensed for patients, that have an unmet medical need. Chemys has a vast network of global wholesalers and local territory knowledge, ensuring a reliable product delivery service. When importing products from overseas, we take full responsibility for gaining authorisation through permission requests and sourcing all technical information required.",
     animateImg: "zoom-in-right",
     animateText: "zoom-in-left",
   },
@@ -20,7 +20,7 @@ const services = [
     alt: "laboratory staff examining sample",
     heading: "UK Manufactured Specials",
     text1:
-      "Chemys has a strong working relationship with several UK specials laboratories who can manufacture specials to ensure we can meet all the varying patient needs.",
+      "Chemys has a strong working relationship with several UK specials laboratories.",
     text2: " ",
     animateImg: "zoom-in-left",
     animateText: "zoom-in-right",

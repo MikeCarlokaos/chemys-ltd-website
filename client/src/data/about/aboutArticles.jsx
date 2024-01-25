@@ -13,7 +13,7 @@ const aboutArticles = [
     id: 2,
     image: `${warehouse}`,
     alt: "warehouse",
-    text: "Importation of unlicensed medicines takes expertise and experience and is underpinned by our key principles of quality, value and trust. We have an MHRA-approved facility that operate under GDP and a highly skilled team that offers exceptional service and ensures seamless patient treatment. Our qualified unlicensed team consists of pharmacists, pharmacy technicians and dispensers and ABPI qualified BDM.",
+    text: "Importation of unlicensed medicines takes expertise and experience and is underpinned by our key principles of quality, value and trust. We have an MHRA-approved facility that operates under GDP and a highly skilled team that offers exceptional service and ensures seamless patient treatment. Our qualified unlicensed team consists of pharmacists, pharmacy technicians and dispensers and ABPI qualified BDM.",
     animate: "zoom-in-left",
   },
 ];
